@@ -1,49 +1,105 @@
 <script lang="ts">
-  import svelteLogo from "./assets/svelte.svg";
-  import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
+  import type { SubmitFormEvent } from "./types/interfaces";
+  import EventForwarding from "@/components/EventForwarding.svelte";
+  import NumericInputs from "@/components/NumericInputs.svelte";
+  import Button from "@/components/Button.svelte";
+  import Markdown from "@/components/Markdown.svelte";
+  import QuestionAnswer from "@/components/QuestionAnswer.svelte";
+  import FileUpload from "@/components/FileUpload.svelte";
+  import TodoItems from "@/components/TodoItems.svelte";
+  import Dimensions from "@/components/Dimensions.svelte";
+
+  let text = "Hello";
+  let firstName = "Ramesh";
+  let lastName = "Shukla";
+  let src = "/vite.svg";
+  $: name = firstName + " " + lastName;
+  $: if (name.startsWith("Rajesh")) {
+    alert(name);
+  }
+  let shown = false;
+  let htmlString = "<strong>Hello I am strong</strong>";
+  let users = [{ id: 1, name: "Ramesh" }];
+  $: students = users;
+  let handleSubmit = (e: SubmitFormEvent) => {
+    e.preventDefault();
+    const field1Value = (
+      e.currentTarget.elements.namedItem("username") as HTMLInputElement
+    ).value;
+    users = [
+      ...users,
+      { id: users[users.length - 1].id + 1, name: field1Value }
+    ];
+    (e.currentTarget.elements.namedItem("username") as HTMLInputElement).value =
+      "";
+  };
+  async function getUserPost() {
+    const posts = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await posts.json();
+    if (posts.ok) {
+      return data;
+    } else {
+      throw new Error(`Something went wrong`);
+    }
+  }
+  let promise = getUserPost();
+  let handleMove = (e: MouseEvent) => {
+    console.log(e.clientX);
+  };
+  let handleMessage = (event: CustomEvent<{ title: string }>) => {
+    console.log("Hello");
+    console.log(event.detail.title);
+  };
+  let handleEventForward = () => {
+    console.log("Hello");
+  };
+  let userrr = "";
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <Dimensions />
+  <QuestionAnswer />
+  <TodoItems />
+  <FileUpload />
+  {name}
+  <img {src} alt="" />
+  <Button title={text} on:message={handleMessage} />
+  <EventForwarding on:click={handleEventForward} />
+  <input type="text" bind:value={userrr} />
+  <div>Hello {userrr || "stranger"}</div>
+  <div on:mousemove={handleMove} role="article">{@html htmlString}</div>
+  <form on:submit={handleSubmit}>
+    <input
+      type="text"
+      name="username"
+      class="border outline-none rounded-md p-2"
+    />
+    <input
+      type="submit"
+      value="Add User"
+      class="bg-pink-600 cursor-pointer text-white text-center p-2"
+    />
+  </form>
 
-  <div class="card">
-    <Counter />
-  </div>
+  {#if !shown}
+    <div>Hello</div>
+  {:else if shown}
+    <div>Hey</div>
+  {:else}
+    <div>Hi</div>
+  {/if}
 
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
+  {#each students as user (user.id)}
+    <div id={`${user.id}`}>{user.name}</div>
+  {/each}
 
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  {#await promise}
+    <div>Loading...</div>
+  {:then data}
+    {#each data as post}
+      <div id={`${post.id}`}>{post.title}</div>
+    {/each}
+  {/await}
+  <NumericInputs />
+  <Markdown />
 </main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>
