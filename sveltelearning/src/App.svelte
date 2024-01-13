@@ -10,6 +10,7 @@
   import Dimensions from "@/components/Dimensions.svelte";
   import ComponentBinding from "@/components/ComponentBinding.svelte";
   import LifeCycleMethods from "@/components/lifecycle/LifeCycleMethods.svelte";
+  import Tick from "@/components/Tick.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -59,6 +60,7 @@
 </script>
 
 <main>
+  <Tick />
   <LifeCycleMethods />
   <ComponentBinding />
   <Dimensions />
