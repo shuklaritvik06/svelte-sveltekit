@@ -8,6 +8,8 @@
   import FileUpload from "@/components/FileUpload.svelte";
   import TodoItems from "@/components/TodoItems.svelte";
   import Dimensions from "@/components/Dimensions.svelte";
+  import ComponentBinding from "@/components/ComponentBinding.svelte";
+  import LifeCycleMethods from "@/components/lifecycle/LifeCycleMethods.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -57,6 +59,8 @@
 </script>
 
 <main>
+  <LifeCycleMethods />
+  <ComponentBinding />
   <Dimensions />
   <QuestionAnswer />
   <TodoItems />
