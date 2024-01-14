@@ -16,6 +16,8 @@
   import TemperatureConvert from "@/guis/TemperatureConvert.svelte";
   import Debugging from "@/debugging/Debugging.svelte";
   import Timer from "@/guis/Timer.svelte";
+  import Stores from "@/components/stores/Stores.svelte";
+  import Motion from "@/components/motion/Motion.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -65,6 +67,8 @@
 </script>
 
 <main>
+  <Motion />
+  <Stores />
   <Timer />
   <Debugging />
   <TemperatureConvert />
