@@ -1,111 +1,38 @@
 <script lang="ts">
-  import type { SubmitFormEvent } from "./types/interfaces";
-  import EventForwarding from "@/components/EventForwarding.svelte";
-  import NumericInputs from "@/components/NumericInputs.svelte";
-  import Button from "@/components/Button.svelte";
-  import Markdown from "@/components/Markdown.svelte";
-  import QuestionAnswer from "@/components/QuestionAnswer.svelte";
-  import FileUpload from "@/components/FileUpload.svelte";
-  import TodoItems from "@/components/TodoItems.svelte";
-  import Dimensions from "@/components/Dimensions.svelte";
-  import ComponentBinding from "@/components/ComponentBinding.svelte";
-  import LifeCycleMethods from "@/components/lifecycle/LifeCycleMethods.svelte";
-  import Tick from "@/components/Tick.svelte";
+  // import Router from "svelte-spa-router";
+  // import { link } from "svelte-spa-router";
+  // import PageOne from "@/routes/PageOne.svelte";
+  // import Practice from "@/components/Practice.svelte";
 
-  let text = "Hello";
-  let firstName = "Ramesh";
-  let lastName = "Shukla";
-  let src = "/vite.svg";
-  $: name = firstName + " " + lastName;
-  $: if (name.startsWith("Rajesh")) {
-    alert(name);
-  }
-  let shown = false;
-  let htmlString = "<strong>Hello I am strong</strong>";
-  let users = [{ id: 1, name: "Ramesh" }];
-  $: students = users;
-  let handleSubmit = (e: SubmitFormEvent) => {
-    e.preventDefault();
-    const field1Value = (
-      e.currentTarget.elements.namedItem("username") as HTMLInputElement
-    ).value;
-    users = [
-      ...users,
-      { id: users[users.length - 1].id + 1, name: field1Value }
-    ];
-    (e.currentTarget.elements.namedItem("username") as HTMLInputElement).value =
-      "";
-  };
-  async function getUserPost() {
-    const posts = await fetch("https://jsonplaceholder.typicode.com/posts");
-    const data = await posts.json();
-    if (posts.ok) {
-      return data;
-    } else {
-      throw new Error(`Something went wrong`);
-    }
-  }
-  let promise = getUserPost();
-  let handleMove = (e: MouseEvent) => {
-    console.log(e.clientX);
-  };
-  let handleMessage = (event: CustomEvent<{ title: string }>) => {
-    console.log("Hello");
-    console.log(event.detail.title);
-  };
-  let handleEventForward = () => {
-    console.log("Hello");
-  };
-  let userrr = "";
+  import { Router, Link, Route } from "svelte-routing";
+  import BlogPost from "@/routes/BlogPost.svelte";
+  import Practice from "@/components/Practice.svelte";
+  export let url = "";
+
+  // let routes = {
+  //   "/posts/:id": PageOne,
+  //   "/practice": Practice
+  // };
 </script>
 
 <main>
-  <Tick />
-  <LifeCycleMethods />
-  <ComponentBinding />
-  <Dimensions />
-  <QuestionAnswer />
-  <TodoItems />
-  <FileUpload />
-  {name}
-  <img {src} alt="" />
-  <Button title={text} on:message={handleMessage} />
-  <EventForwarding on:click={handleEventForward} />
-  <input type="text" bind:value={userrr} />
-  <div>Hello {userrr || "stranger"}</div>
-  <div on:mousemove={handleMove} role="article">{@html htmlString}</div>
-  <form on:submit={handleSubmit}>
-    <input
-      type="text"
-      name="username"
-      class="border outline-none rounded-md p-2"
-    />
-    <input
-      type="submit"
-      value="Add User"
-      class="bg-pink-600 cursor-pointer text-white text-center p-2"
-    />
-  </form>
-
-  {#if !shown}
-    <div>Hello</div>
-  {:else if shown}
-    <div>Hey</div>
-  {:else}
-    <div>Hi</div>
-  {/if}
-
-  {#each students as user (user.id)}
-    <div id={`${user.id}`}>{user.name}</div>
-  {/each}
-
-  {#await promise}
-    <div>Loading...</div>
-  {:then data}
-    {#each data as post}
-      <div id={`${post.id}`}>{post.title}</div>
-    {/each}
-  {/await}
-  <NumericInputs />
-  <Markdown />
+  <!-- Hash Router SPA -->
+  <!-- <a href="/practice" use:link>Practice</a>
+  <a href="/posts/1" use:link>Post 1</a>
+  <a href="/posts/2" use:link>Post 2</a>
+  <Router {routes} /> -->
+  <Router {url}>
+    <nav>
+      <Link to="/blog">Blog</Link>
+      <Link to="/practice">Practice</Link>
+    </nav>
+    <div>
+      <Route path="/blog">
+        <BlogPost />
+      </Route>
+      <Route path="/practice">
+        <Practice />
+      </Route>
+    </div>
+  </Router>
 </main>
