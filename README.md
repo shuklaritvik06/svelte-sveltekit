@@ -2,4 +2,4 @@
 
 - [ ] Svelte
 - [ ] SvelteKit
-- [ ] SvelteKit Native
+- [ ] Svelte Native
