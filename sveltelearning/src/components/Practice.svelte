@@ -18,6 +18,8 @@
   import Timer from "@/guis/Timer.svelte";
   import Stores from "@/components/stores/Stores.svelte";
   import Motion from "@/components/motion/Motion.svelte";
+  import Transition from "@/components/transitions/Transition.svelte";
+  import CustomTransition from "@/components/transitions/CustomTransition.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -67,6 +69,8 @@
 </script>
 
 <main>
+  <CustomTransition />
+  <Transition />
   <Motion />
   <Stores />
   <Timer />

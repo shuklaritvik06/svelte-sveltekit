@@ -26,8 +26,8 @@
 <svg
   class="w-screen h-screen"
   on:mousemove={(e) => {
-    $springCoord.x = e.clientX;
-    $springCoord.y = e.clientY;
+    $springCoord.x = e.clientX + 5;
+    $springCoord.y = e.clientY - 40;
   }}
   on:mousedown={(e) => {
     $springSize = 30;
