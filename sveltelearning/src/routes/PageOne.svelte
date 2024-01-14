@@ -1,14 +1,5 @@
 <script lang="ts">
   import { replace, params } from "svelte-spa-router";
-  import { onMount } from "svelte";
-
-  let promise: any;
-
-  params.subscribe((val) => {
-    if (val) {
-      promise = GetPost(val.id);
-    }
-  });
 
   async function GetPost(id: string) {
     const data = await fetch(
@@ -17,6 +8,7 @@
     const res = await data.json();
     return res;
   }
+  let promise = GetPost($params);
 </script>
 
 <main>

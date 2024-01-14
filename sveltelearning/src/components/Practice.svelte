@@ -13,6 +13,9 @@
   import Tick from "@/components/Tick.svelte";
   import Actions from "@/components/actions/Actions.svelte";
   import ClassDirective from "@/components/ClassDirective.svelte";
+  import TemperatureConvert from "@/guis/TemperatureConvert.svelte";
+  import Debugging from "@/debugging/Debugging.svelte";
+  import Timer from "@/guis/Timer.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -62,6 +65,9 @@
 </script>
 
 <main>
+  <Timer />
+  <Debugging />
+  <TemperatureConvert />
   <ClassDirective />
   <Actions />
   <Tick />
