@@ -1,27 +1,26 @@
-<page>
-    <actionBar title="Home" />
-    <gridLayout>
-        <label class="info">
-            <formattedString>
-                <span class="fas" text="&#xf135;" />
-                <span text=" {message}" />
-            </formattedString>
-        </label>
-    </gridLayout>
-</page>
-
 <script lang="ts">
-    let message: string = "Blank Svelte Native App"
+  let message: string = "Blank Svelte Native App";
 </script>
 
-<style>
-    .info .fas {
-        color: #3A53FF;
-    }
+<page>
+  <actionBar title="Home" />
+  <gridLayout>
+    <label class="info">
+      <formattedString>
+        <span class="fas" text="&#xf135;" />
+        <span text=" {message}" />
+      </formattedString>
+    </label>
+  </gridLayout>
+</page>
 
-    .info {
-        font-size: 20;
-        horizontal-align: center;
-        vertical-align: center;
-    }
+<style>
+  .info .fas {
+    color: #3a53ff;
+  }
+
+  .info {
+    font-size: 20;
+    vertical-align: center;
+  }
 </style>

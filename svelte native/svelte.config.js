@@ -1,9 +1,9 @@
-const sveltePreprocess = require('svelte-preprocess')
-const svelteNativePreprocessor = require('svelte-native-preprocessor')
+const sveltePreprocess = require("svelte-preprocess");
+const svelteNativePreprocessor = require("svelte-native-preprocessor");
 
 module.exports = {
   compilerOptions: {
-    namespace: "foreign"
+    namespace: "foreign",
   },
-  preprocess: [ sveltePreprocess(), svelteNativePreprocessor() ]
-}
+  preprocess: [sveltePreprocess(), svelteNativePreprocessor()],
+};
