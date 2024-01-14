@@ -20,6 +20,13 @@
   import Motion from "@/components/motion/Motion.svelte";
   import Transition from "@/components/transitions/Transition.svelte";
   import CustomTransition from "@/components/transitions/CustomTransition.svelte";
+  import NamedExport, { hello } from "@/components/NamedExport.svelte";
+  import ContextSvelte from "@/components/context/ContextSvelte.svelte";
+  import Slots from "@/components/slots/Slots.svelte";
+  import FallbackSlots from "@/components/slots/FallbackSlots.svelte";
+  import ConditionalSlots from "@/components/slots/ConditionalSlots.svelte";
+  import SlotProps from "@/components/slots/SlotProps.svelte";
+  import SpecialElements from "@/components/special/SpecialElements.svelte";
 
   let text = "Hello";
   let firstName = "Ramesh";
@@ -66,9 +73,30 @@
     console.log("Hello");
   };
   let userrr = "";
+  hello();
 </script>
 
 <main>
+  <SpecialElements />
+  <SlotProps let:hovering={active}>
+    <div class:active>
+      {#if active}
+        <p>I am being hovered upon.</p>
+      {:else}
+        <p>Hover over me!</p>
+      {/if}
+    </div>
+  </SlotProps>
+  <ConditionalSlots>
+    <div slot="email">ramesh@gmail.com</div>
+    <div slot="phone">9999999999</div>
+  </ConditionalSlots>
+  <FallbackSlots />
+  <Slots name="Hi">
+    <span>Hello</span>
+  </Slots>
+  <ContextSvelte />
+  <NamedExport />
   <CustomTransition />
   <Transition />
   <Motion />
