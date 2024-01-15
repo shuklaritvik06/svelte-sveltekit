@@ -1,4 +1,8 @@
 <script>
+	// @ts-nocheck
+
+	import { page } from '$app/stores';
+	console.log($page.state);
 </script>
 
-<div>Hello</div>
+<div>{$page.state.name}</div>
