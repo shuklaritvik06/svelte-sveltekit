@@ -1,5 +1,4 @@
 # Svelte & SvelteKit Learning
 
-- [ ] Svelte
-- [ ] SvelteKit
-- [ ] Svelte Native
+- [x] Svelte
+- [x] SvelteKit
